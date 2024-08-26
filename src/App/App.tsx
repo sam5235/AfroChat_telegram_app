@@ -8,16 +8,9 @@ import ChatPage from "../pages/view/chat";
 import LoginPage from "../pages/login";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-// import { useValidateBotLQuery } from "../services/apiSlice2";
-// import { useWebApp } from "@vkruglikov/react-telegram-web-app";
 export const App = () => {
-  // const webApp = useWebApp();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
-  // const { data } = useValidateBotLQuery(webApp.initData);
-  
-  // if (data !== null) {
-  //   webApp.close();  TO DO TO DO TO DO
-  // }
+ 
   return (
     <Router>
       <Routes>
