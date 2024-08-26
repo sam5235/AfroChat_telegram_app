@@ -1,6 +1,5 @@
 export async function generateToken(): Promise<string> {
     const key = import.meta.env.VITE_SECRET_KEY;
-    
     if (!key) {
       throw new Error("VITE_SECRET_KEY is not defined");
     }
