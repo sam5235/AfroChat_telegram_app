@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.shimmer{
+  @apply animate-pulse shadow bg-background
+
+}
+
+html ::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+}
+
+html ::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+html ::-webkit-scrollbar-thumb {
+  background: transparent !important;
+ 
+}
+html ::-webkit-scrollbar-thumb:hover {
+  background: transparent !important;
+}
+
+@layer base {
+  :root {
+    --tg-color-scheme: dark;
+    --tg-theme-bg-color: #17212b;
+    --tg-theme-accent-text-color: #6ab2f2;
+    --tg-theme-button-color: #5288c1;
+    --tg-theme-button-text-color: #ffffff;
+    --tg-theme-hint-color: #708499;
+    --tg-theme-link-color: #6ab3f3;
+    --tg-theme-secondary-bg-color: #232e3c;
+    --tg-theme-text-color: #ffffff;
+    --tg-theme-subtitle_text_color: #708499;
+    --tg-theme-section_bg_color: #17212b;
+    --tg-viewport-height: 100vh;
+    --tg-viewport-stable-height: 100vh;
+  }
+}
+
+// #root {
+//   @apply flex h-screen w-screen items-center justify-center bg-background text-text;
+// }
