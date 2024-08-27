@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 export const App = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
- 
+ //TODO: validating the bot 
   return (
     <Router>
       <Routes>
