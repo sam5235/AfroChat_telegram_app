@@ -60,6 +60,24 @@ const ExplorePage = () => {
     },
     [isLoading, isFetching, data, offset, limit, dispatch]
   );
+  const [link, setLink] = useState<string>("");
+
+  useEffect(() => {
+    const userAgentString = navigator.userAgent;
+    if (/iPhone|iPad|iPod/.test(userAgentString)) {
+      setLink("https://apps.apple.com/ph/app/afro-chat/id6499267442?uo=2");
+    } else if (/Android/.test(userAgentString)) {
+      setLink(
+        "https://play.google.com/store/apps/details?id=org.a2sv.afro_chat"
+      );
+    } else {
+      setLink("https://afrochat.app/application/chat/home");
+    }
+  }, []);
+
+  const handleRedirect = () => {
+    window.open(link);
+  };
 
   return (
     <div className="bg-secondaryBg pb-28 h-full overflow-y-auto">
@@ -75,9 +93,14 @@ const ExplorePage = () => {
                     : "bg-background"
                 }   text-text text-sm h-6 font-semibold px-3 whitespace-nowrap`}
                 onClick={() => {
-                  setSelectedTag(tag);
-                  dispatch(resetState());
-                  setTagColor("button");
+                  if (tag.title === "Tool") {
+                    setTagColor("button");
+                    handleRedirect();
+                  } else {
+                    setSelectedTag(tag);
+                    dispatch(resetState());
+                    setTagColor("button");
+                  }
                 }}
               >
                 <p>{tag.title}</p>

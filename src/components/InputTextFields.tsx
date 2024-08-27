@@ -6,10 +6,7 @@ import { IoSend } from "react-icons/io5";
 import { RiSearch2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  setSearchedWord,
-  setSessionId,
-} from "../services/inputSlice";
+import { setSearchedWord, setSessionId } from "../services/inputSlice";
 import {
   resetChatState,
   setChatQuestion,
@@ -27,11 +24,12 @@ export const TextBar = ({ setCurrentFeature }: TextBarProps) => {
   const [featureVisible, setFeatureVisible] = useState(false);
   const [imageVisibility, setImageVisibility] = useState(false);
   const [question, setQuestion] = useState<string>("");
- 
 
   const divRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectFeature = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectFeature = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setFeature(event.target.value);
   };
   const handleSearch = () => {
@@ -85,7 +83,7 @@ export const TextBar = ({ setCurrentFeature }: TextBarProps) => {
   }, []);
 
   return (
-    <>
+    <div ref={divRef} className="relative">
       {featureVisible && (
         <div>
           <TypesOfChats
@@ -95,7 +93,7 @@ export const TextBar = ({ setCurrentFeature }: TextBarProps) => {
         </div>
       )}
       {imageVisibility && <ImageFeatures />}
-      <div className="flex items-center rounded-full h-12 w-full justify-center bg-background shadow-lg px-5 gap-3">
+      <div className="flex items-center rounded-full h-12 w-full justify-center bg-background shadow-lg px-5 gap-3 mt-3">
         <IoMdArrowDropdown
           onClick={() => {
             setFeatureVisible((prev) => !prev);
@@ -111,17 +109,25 @@ export const TextBar = ({ setCurrentFeature }: TextBarProps) => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyPress}
-        />
-        <FaRegImages
           onClick={() => {
-            setImageVisibility(!imageVisibility);
             setFeatureVisible(false);
+            setImageVisibility(false);
           }}
-          className="text-button"
-          size={24}
         />
+        {question ? (
+          <IoSend className="text-button" onClick={handleSearch} />
+        ) : (
+          <FaRegImages
+            onClick={() => {
+              setImageVisibility(!imageVisibility);
+              setFeatureVisible(false);
+            }}
+            className="text-button"
+            size={24}
+          />
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

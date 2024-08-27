@@ -64,26 +64,27 @@ const Response = () => {
   }, [lastChatRef, chats]);
 
   return (
-    <div className="flex flex-col py-5 h-full bg-secondaryBg gap-3 px-2 pb-16">
+    <div className="flex flex-col py-5 h-full bg-secondaryBg gap-3 px-2 pb-16 ">
       {isLoading && chats.length === 0 ? (
         <ResponseShimmer />
       ) : (
         <>
           {chats.length > 0 && (
             <>
-              <p className="bg-background w-auto rounded-md px-2 font-light font-serif">
-                {chats[1]?.question}
-              </p>
               {chats.slice(1).map((chat, idx) => (
                 <div
+                  className=""
                   ref={idx === chats.slice(1).length - 1 ? lastChatRef : null}
                 >
+                  <p className="bg-background w-auto rounded-md px-2 font-light font-serif">
+                    {chat.question}
+                  </p>
                   <ResponsePage key={idx} data={chat} />
                 </div>
               ))}
               {isFetching && <ResponseShimmer />}
               {chats.length > 1 && !isFetching && (
-                <div className="flex flex-col">
+                <div className="flex flex-col pb-16">
                   <div className="flex flex-row justify-start gap-2">
                     <TbZoomQuestion size={26} />
                     <p className="font-extrabold text-xl mb-3">
@@ -118,7 +119,9 @@ const Response = () => {
                   </div>
                 </div>
               )}
-              <ChatBar onClick={handleInput} />
+              <div className="fixed top-[80%] bg-secondaryBg w-full h-full">
+                <ChatBar onClick={handleInput} />
+              </div>
               <div ref={messagesEndRef} />
             </>
           )}

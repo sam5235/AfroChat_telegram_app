@@ -26,9 +26,9 @@ const ChatPage = () => {
         />
         <p className="self-center font-semibold">{personaName}</p>
       </div>
-      <div className="h-full flex flex-col gap-8 p-3 pt-16 overflow-y-auto bg-secondaryBg pb-36">
+      <div className="h-[500px] flex flex-col gap-8 p-3 pt-16 overflow-y-auto bg-secondaryBg pb-10">
         {!session_id ? <NewChat /> : <ContinuedChat />}
-        <ChatBar onClick={handleInput} />
+          <ChatBar onClick={handleInput} />
       </div>
     </>
   );
