@@ -71,7 +71,7 @@ const HistoryCard = ({ history }: HistoryCardProp) => {
             alt=""
           />
         </div>
-        <div className="relative w-3/5 mr-5 self-center">
+        <div className="relative w-3/5 mr-5 self-center text-text">
           <p className="text-sm font-semibold line-clamp-1 break-words">
             {history.name}
           </p>

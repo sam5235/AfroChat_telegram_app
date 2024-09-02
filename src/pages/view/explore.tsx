@@ -15,6 +15,7 @@ import {
   resetState,
 } from "../../services/exploreSlice";
 import DiscoverCard from "../../components/DiscoverCard";
+import useAppRedirect from "../../utils/useAppRedirect";
 const ExplorePage = () => {
   const dispatch = useDispatch();
   const [tagColor, setTagColor] = useState("background");
@@ -60,24 +61,7 @@ const ExplorePage = () => {
     },
     [isLoading, isFetching, data, offset, limit, dispatch]
   );
-  const [link, setLink] = useState<string>("");
-
-  useEffect(() => {
-    const userAgentString = navigator.userAgent;
-    if (/iPhone|iPad|iPod/.test(userAgentString)) {
-      setLink("https://apps.apple.com/ph/app/afro-chat/id6499267442?uo=2");
-    } else if (/Android/.test(userAgentString)) {
-      setLink(
-        "https://play.google.com/store/apps/details?id=org.a2sv.afro_chat"
-      );
-    } else {
-      setLink("https://afrochat.app/application/chat/home");
-    }
-  }, []);
-
-  const handleRedirect = () => {
-    window.open(link);
-  };
+  const handleRedirect = useAppRedirect();
 
   return (
     <div className="bg-secondaryBg pb-28 h-full overflow-y-auto">
@@ -91,7 +75,7 @@ const ExplorePage = () => {
                   selectedTag.title === tag.title
                     ? `bg-${tagColor}`
                     : "bg-background"
-                }   text-text text-sm h-6 font-semibold px-3 whitespace-nowrap`}
+                }   text-text text-sm h-8 font-semibold px-3 whitespace-nowrap text-center`}
                 onClick={() => {
                   if (tag.title === "Tool") {
                     setTagColor("button");
@@ -103,7 +87,7 @@ const ExplorePage = () => {
                   }
                 }}
               >
-                <p>{tag.title}</p>
+                <p className="flex self-center">{tag.title}</p>
               </button>
             ))}
           </div>

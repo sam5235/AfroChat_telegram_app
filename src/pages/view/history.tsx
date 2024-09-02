@@ -46,6 +46,7 @@ const HistoryPage = () => {
     [isLoading, isFetching, data, offset, limit, dispatch]
   );
 
+
   return (
     <div className="h-auto w-full bg-secondaryBg pb-20">
       {isLoading ? (
@@ -77,7 +78,12 @@ const HistoryPage = () => {
                     {historyDateFormat(history.updated_at)}
                   </p>
                 ))}
-              <HistoryCard history={history} />
+              {history.sub_tool_id !== "2ee48cad-3495-4496-aa8d-e819b4ec4b1b" &&
+                history.sub_tool_id !== "5886a879-2230-446d-9f65-8299c30a8aca" &&
+                history.sub_tool_id !== "0d834cb1-3069-4811-8c87-d95922ab9f0c" &&
+                history.sub_tool_id !== "a9e8644e-0293-44bd-8310-3edfeec0bd2c" && (
+                  <HistoryCard history={history} />
+                )}
             </div>
           ))}
           {isFetching && (

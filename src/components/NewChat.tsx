@@ -57,23 +57,23 @@ const NewChat = () => {
     <>
       {chatResponses?.map((chat, idx) => {
         <div key={idx}>
-          <div className="flex max-w-[90%] bg-button p-2 rounded-2xl self-end gap-1">
+          <div className="flex max-w-[90%] bg-button p-2 rounded-2xl self-end gap-1 text-text">
             {chat[0].message}
-            <p className="text-gray-400 text-xs self-end w-16">
+            <p className="text-text text-xs self-end w-16">
               {gethours(chat[0].timestamp)}
             </p>
           </div>
 
           <div className="flex gap-1 max-w-[95%] bg-sectionBg rounded-2xl p-2">
             {chat[1].message}
-            <p className="text-gray-400 text-xs self-end w-16">
+            <p className="text-text text-xs self-end w-16">
               {gethours(chat[1].timestamp)}
             </p>
           </div>
         </div>;
       })}
       {(isLoading || isFetching) && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-text">
         <div
           ref={lastChatRef}
           className="max-w-[85%] bg-button p-2 rounded-2xl self-end gap-1"

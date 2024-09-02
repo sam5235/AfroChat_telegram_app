@@ -24,11 +24,13 @@ const ChatPage = () => {
           src={personaIconUrl}
           alt=""
         />
-        <p className="self-center font-semibold">{personaName}</p>
+        <p className="self-center font-semibold text-text">{personaName}</p>
       </div>
       <div className="h-[500px] flex flex-col gap-8 p-3 pt-16 overflow-y-auto bg-secondaryBg pb-10">
         {!session_id ? <NewChat /> : <ContinuedChat />}
+        <div className="fixed top-[77%] bg-secondaryBg w-full h-full">
           <ChatBar onClick={handleInput} />
+        </div>
       </div>
     </>
   );

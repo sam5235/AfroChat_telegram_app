@@ -5,14 +5,17 @@ import { ImageFeatures, TypesOfChats } from "./MainFeatures";
 import { IoSend } from "react-icons/io5";
 import { RiSearch2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setSearchedWord, setSessionId } from "../services/inputSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchedWord, setSelectedModel, setSessionId } from "../services/inputSlice";
 import {
   resetChatState,
   setChatQuestion,
   setPersonaDetails,
 } from "../services/chatsSlice";
 import { resetResponse } from "../services/responseSlice";
+import { useGetAIModelsQuery } from "../services/apiSlices";
+import { RootState } from "../store/store";
+import useAppRedirect from "../utils/useAppRedirect";
 
 interface TextBarProps {
   setCurrentFeature: React.Dispatch<React.SetStateAction<string>>;
@@ -135,7 +138,18 @@ interface ChatInputProps {
   onClick: (item: string) => void;
 }
 export const ChatBar = ({ onClick }: ChatInputProps) => {
+  const dispatch = useDispatch();
+  const {selectedModel} = useSelector((state: RootState)=> state.input)
   const [question, setQuestion] = useState<string>("");
+  const { data } = useGetAIModelsQuery({ model_type: "llm_models" });
+  const sortedData: any[] = data
+    ? [
+        // First, filter and include "GPT 3.5" and "GPT Mini 40"
+        ...data.filter((item: any) => item.name === "GPT 3.5" || item.name === "GPT-4o mini"),
+        // Then, include all other items that are not "GPT 3.5" or "GPT Mini 40"
+        ...data.filter((item: any) => item.name !== "GPT 3.5" && item.name !== "GPT-4o mini"),
+      ]
+    : [];
 
   const handleInput = () => {
     onClick(question);
@@ -151,18 +165,44 @@ export const ChatBar = ({ onClick }: ChatInputProps) => {
   const handleSend = () => {
     handleInput();
   };
-
+  const handleRedirect = useAppRedirect();
+  const handleDisAbled = (model: string) =>{
+    if(model !== "GPT 3.5" && model !== "GPT-4o mini"){
+      handleRedirect();
+    }
+  }
   return (
-    <div className="fixed top-[80%] w-[93%] flex items-center rounded-full h-14 bg-background justify-between shadow-lg px-5 gap-3">
-      <input
-        className="bg-transparent outline-none w-60 focus:ring-0"
-        type="text"
-        placeholder="Ask anything"
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        onKeyDown={handleKeyPress}
-      />
-      <IoSend onClick={handleSend} />
+    <div className="fixed top-[77%] w-[93%] flex flex-col gap-1">
+      <div className="flex items-center rounded-full h-14 bg-background justify-between shadow-lg px-5 gap-3">
+        <input
+          className="bg-transparent outline-none w-60 focus:ring-0"
+          type="text"
+          placeholder="Ask anything"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <IoSend onClick={handleSend} />
+      </div>
+      <div className="flex w-full overflow-x-auto gap-2 text-nowrap whitespace-nowrap items-center">
+       {sortedData?.map((item: any, index: number) => (
+            <button
+              key={index}
+              className={`rounded-full  ${
+                item.name === selectedModel ? "bg-button" : "bg-secondaryBg"
+              } border border-hint text-text h-8 text-sm whitespace-nowrap flex items-center gap-1 px-2`}
+              onClick={() => {handleDisAbled(item.name), dispatch(setSelectedModel(item.name))}}
+            >
+              <div className="w-6 h-6 flex items-center">
+                <img src={item.image} alt="" />
+              </div>
+              <div className={`${item.name !== "GPT-4o mini" && item.name !== "GPT 3.5" && "text-subtitle "}`}>{item.name}</div>
+            </button>
+          ))}
+      
+   
+      
+      </div>
     </div>
   );
 };

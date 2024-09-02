@@ -1,6 +1,7 @@
 import { TbWritingSign } from "react-icons/tb";
 import { GrCopy } from "react-icons/gr";
 import { HiLink } from "react-icons/hi";
+import MarkdownText from "./MarkDown";
 
 interface SourceProps {
   title: string;
@@ -51,7 +52,7 @@ export default function ResponsePage({ data }: ResponsePageProps) {
           </div>
         </div>
         <p className="text-sm text-ellipsis overflow-hidden text-subtitle bg-background p-3 rounded-lg w-full">
-          {data.summary}
+          <MarkdownText content={data.summary}/>
         </p>
       </div>
       <div className="flex-col">
@@ -63,11 +64,11 @@ export default function ResponsePage({ data }: ResponsePageProps) {
           {data.sources?.map((item: SourceProps, key: number) => (
             <div
               key={key}
-              className="flex-1 bg-background text-hint w-52  rounded-md p-2 text-sm"
+              className="flex-1 bg-background text-hint w-56  rounded-md p-2 text-sm h-30"
               onClick={() => handleClickOnSource(item.URL)}
             >
               <p className="w-40 link link-link line-clamp-2"> {item.title}</p>
-              <p className="line-clamp-2">{item.short_description}</p>
+              <p className="line-clamp-3">{item.short_description}</p>
             </div>
           ))}
         </div>
