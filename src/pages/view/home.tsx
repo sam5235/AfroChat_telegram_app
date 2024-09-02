@@ -56,7 +56,7 @@ const HomePage = () => {
               <div className="w-6 h-6 flex items-center">
                 <img src={item.image} alt="" />
               </div>
-              <div>{item.name}</div>
+              <div className={`${item.name !== "GPT-4o mini" && item.name !== "GPT 3.5" && "text-subtitle "}`}>{item.name}</div>
             </button>
           ))
         ) : (
