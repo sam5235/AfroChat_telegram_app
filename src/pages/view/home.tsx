@@ -51,6 +51,7 @@ const HomePage = () => {
               } border border-hint text-text h-8 text-sm whitespace-nowrap flex items-center gap-1 px-2`}
               onClick={() => {
                 dispatch(setSelectedModel(item.name));
+                handleDisAbled(item.name);
               }}
             >
               <div className="w-6 h-6 flex items-center">
