@@ -23,11 +23,11 @@ const HomePage = () => {
     : [];
   const handleRedirect = useAppRedirect();
 
-  // const handleDisAbled = (model: string) => {
-  //   if (model !== "GPT 3.5" && model !== "GPT-4o mini") {
-  //     handleRedirect();
-  //   }
-  // };
+  const handleDisAbled = (model: string) => {
+    if (model !== "GPT 3.5" && model !== "GPT-4o mini") {
+      handleRedirect();
+    }
+  };
 
   return (
     <div className="h-screen bg-secondaryBg w-full flex flex-col">
