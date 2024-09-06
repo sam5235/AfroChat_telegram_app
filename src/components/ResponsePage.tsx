@@ -30,7 +30,7 @@ export default function ResponsePage({ data }: ResponsePageProps) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-secondaryBg gap-3">
+    <div className="flex flex-col h-full bg-secondaryBg gap-3 text-text">
       <div className="w-full flex flex-col gap-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-2 items-center ">
